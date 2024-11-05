@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import defaultImg from "../assets/default-pic.jpg"
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../Components-CSS/ArticleId.css"
@@ -22,11 +23,19 @@ function ArticleId() {
         setIsLoading(false)
 
     })
-  });
+  }, [articleURL]);
+
+  if (isError) {
+    return <p>There was an error loading articles. Please try again later.</p>;
+  }
+
+  if (isLoading) {
+    return <div className="loading-spinner">Loading articles...</div>;
+  }
   return (
     <>
       <div className="article-by-id">
-        <img id="articleIMG" src={article.article_img_url} alt="article image"/>
+      <img className="article-card-img" src={article.article_img_url ? article.article_img_url : defaultImg} alt="article image"/>
         <h1 id="title">{article.title}</h1>
         <p id="author">{article.author} - {article.topic}</p>
         <div id="body">{article.body}</div>

@@ -24,11 +24,11 @@ function Articles() {
     }, [])
 
     if (isError) {
-        return <p>Error!!</p>;
+        return <p>There was an error loading articles. Please try again later.</p>;
       }
     
       if (isLoading) {
-        return <p>Loading...</p>;
+        return <div className="loading-spinner">Loading articles...</div>;
       }
 
 return (
