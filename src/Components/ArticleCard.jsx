@@ -10,7 +10,7 @@ function ArticleCard({ articles }) {
         {articles.map((article) => (
             <li key={article.article_id}>
                 <Link to={`/articles/${article.article_id}`} >
-                <img className="article-card-img" src={article.article_img_url ? article.article_img_url : defaultImg} />
+                <img className="article-card-img" src={article.article_img_url ? article.article_img_url : defaultImg} alt="article image"/>
                 <h3>{article.title}</h3>
                 </Link>
                 <p>{article.author}</p>
