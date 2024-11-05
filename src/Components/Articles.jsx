@@ -1,6 +1,6 @@
 import ArticleCard from "./ArticleCard"
 import { useEffect, useState } from "react";
-
+import axios from "axios";
 
 
 function Articles() {
@@ -11,20 +11,15 @@ function Articles() {
 
     useEffect(() => {
         setIsLoading(true)
-        fetch(articleURL)
+        axios.get(articleURL)
             .then((response) => {
-                if (!response.ok) {
-                    return Promise.reject({ status: 404, msg: "404 Not Found"})
-                }
-                return response.json()
-            })
-            .then((articleData) => {
-                setArticles(articleData.articles)
+                setArticles(response.data.articles)
                 setIsError(false)
                 setIsLoading(false)
             })
             .catch((error) => {
                 setIsError(true)
+                setIsLoading(false);
             })
     }, [])
 
