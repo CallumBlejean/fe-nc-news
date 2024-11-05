@@ -13,7 +13,11 @@ function ArticleCard({ articles }) {
                 <img className="article-card-img" src={article.article_img_url ? article.article_img_url : defaultImg} alt="article image"/>
                 <h3>{article.title}</h3>
                 </Link>
-                <p>{article.author}</p>
+                <p><b>{article.author}</b></p>
+                <section id="info-section">
+                <p id="card-vote-count">Votes: {article.votes}</p>
+                <p id="card-comment-count">{article.comment_count} Comments</p>
+                </section>
             </li>
         ))}
 

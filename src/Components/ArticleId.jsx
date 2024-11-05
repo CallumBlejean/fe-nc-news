@@ -10,6 +10,7 @@ function ArticleId() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState([]);
+  const [articleVotes, setArticleVotes] = useState(0)
   const articleURL = `https://be-nc-news-yg12.onrender.com/api/articles/${article_id}`;
   const commentsURL = `${articleURL}/comments`;
 
@@ -39,6 +40,27 @@ function ArticleId() {
       });
   }, [articleURL, commentsURL]);
 
+function handleVote(increment) {
+    
+    setArticleVotes((prevVotes) => prevVotes + increment)
+
+    axios
+    .patch(articleURL, { inc_votes: increment})
+    .then((response) => {
+        setArticleVotes(response.data.article.votes)
+    })
+    .catch((error) => {
+        setArticleVotes((prevVotes) => prevVotes - inc)
+        setIsError(true);
+        setIsLoading(false);
+    })
+
+}
+
+
+
+
+
   if (isError) {
     return <p>There was an error loading articles. Please try again later.</p>;
   }
@@ -46,6 +68,10 @@ function ArticleId() {
   if (isLoading) {
     return <div className="loading-spinner">Loading articles...</div>;
   }
+
+
+
+
   return (
     <>
     <title>{article.title}e</title>
@@ -55,13 +81,18 @@ function ArticleId() {
           src={article.article_img_url ? article.article_img_url : defaultImg}
           alt="article image"
         />
-        <h1 id="title">{article.title}</h1>
+        
         <p id="author">
           {article.author} - {article.topic}
         </p>
         <div id="body">{article.body}</div>
-        <p>Votes: {article.votes}</p>
-      </div>
+        <div className="vote-section">
+        <button onClick={() => handleVote(1)}>Upvote</button>
+        <p>Votes: {articleVotes}</p>
+        <button onClick={() => handleVote(-1)}>Downvote</button>
+    </div>
+    </div>
+
 
       <div className="comments-section">
         <h2>Comments</h2>

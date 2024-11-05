@@ -68,11 +68,11 @@
     margin-bottom: 20px;
   }
   
-  .article-by-id p:last-of-type {
-    font-size: 1em;
+  .article-by-id p {
+   font-size: 1em;
     color: #555;
     text-align: right;
-    font-weight: bold;
+    font-weight: bold; 
   }
   /* comment section */
 
@@ -101,3 +101,38 @@
     font-size: 1em;
     color: #555;
   }
+
+  /* vote section*/
+ 
+.vote-section {
+  display: flex;
+  align-items: right;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: right; 
+}
+
+.vote-section p {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #555;
+  margin: 0; 
+}
+
+.vote-section button {
+  padding: 5px 10px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: white;
+}
+
+.vote-section button:hover {
+  background-color: #45a049;
+}
+
+.vote-section button:active {
+  transform: scale(0.95);
+}

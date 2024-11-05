@@ -6,13 +6,16 @@ function Header() {
   return (
     <HeaderBox>
       <header>
-        <h1 id="title">NC News</h1>
+      <Link to="/"><h1 id="title">NC News</h1></Link>
         <nav id="nav">
           <div className="dropdown">
             <button className="dropdown-button">Menu</button>
             <div className="dropdown-content">
               <Link to="/">Home</Link>
               <Link to="/articles">Articles</Link>
+              <Link to="/post-article">Post Article</Link>
+              <Link to="/users">Users</Link>
+              <Link to="/profile">Profile</Link>
             </div>
           </div>
         </nav>
