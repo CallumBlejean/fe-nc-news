@@ -1,3 +1,4 @@
+/* loading spinner */
 .loading-spinner {
     display: flex;
     justify-content: center;
@@ -24,7 +25,7 @@
         transform: rotate(360deg);
     }
 }
-
+/* article */
 
   .article-by-id {
     max-width: 800px;
@@ -73,4 +74,30 @@
     text-align: right;
     font-weight: bold;
   }
+  /* comment section */
+
+  .comments-section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
   
+  .comments-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .comment-box {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .comment-box p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #555;
+  }
