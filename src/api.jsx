@@ -51,6 +51,13 @@ function postComment(article_id, username, body){
         console.log(error)
     })
 }
+function deleteComment(comment_id){
+    return axios
+    .delete(`${baseURL}/comments/${comment_id}`)
+    .catch((error) => {
+        console.log(error)
+    })
+}
 
 
 function postArticle(author, title, body, topic, article_img_url){
@@ -76,4 +83,6 @@ export {
     updateVote,
     postArticle,
     postComment,
+    deleteComment,
+
 }

@@ -3,10 +3,16 @@ import defaultImg from "../assets/default-pic.jpg";
 import { useParams } from "react-router-dom";
 import { useUser } from "../UserContext";
 import "../Components-CSS/ArticleId.css";
-import { fetchArticle, fetchComments, updateVote, postComment } from "../api";
+import {
+  fetchArticle,
+  fetchComments,
+  updateVote,
+  postComment,
+  deleteComment,
+} from "../api";
 
 function ArticleId() {
-  const user = useUser()
+  const user = useUser();
   const { article_id } = useParams();
   const [article, setArticle] = useState([]);
   const [articleVotes, setArticleVotes] = useState(0);
@@ -18,6 +24,8 @@ function ArticleId() {
 
   const [postError, setPostError] = useState(false);
   const [isPosting, setIsPosting] = useState(false);
+
+  const [deletingCommentId, setDeletingCommentId] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -60,26 +68,40 @@ function ArticleId() {
   }
 
   function handlePostComment(event) {
-    event.preventDefault()
-    setIsPosting(true)
-    
-    
+    event.preventDefault();
+    setIsPosting(true);
+
     postComment(article_id, user.username, newComment)
       .then((postedComment) => {
         setComments((prevComments) => {
-         return [postedComment, ...prevComments]
-        })
-        setNewComment("")
-        setIsPosting(false)
+          return [postedComment, ...prevComments];
+        });
+        setNewComment("");
+        setIsPosting(false);
       })
-      
+
       .catch((error) => {
-        setPostError(true)
-        setIsPosting(false)
+        setPostError(true);
+        setIsPosting(false);
+      });
+  }
+
+  function handleDeleteComment(comment_id) {
+    setDeletingCommentId(comment_id);
+
+    deleteComment(comment_id)
+      .then(() => {
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.comment_id !== comment_id)
+        );
+        setDeletingCommentId(null);
       })
-    }
-  
-1
+      .catch((error) => {
+        setDeletingCommentId(null)
+        console.log(error);
+      });
+  }
+  1;
   if (isError) {
     return <p>There was an error loading articles. Please try again later.</p>;
   }
@@ -114,7 +136,7 @@ function ArticleId() {
       </div>
 
       <div className="comments-section">
-      <form onSubmit={handlePostComment}>
+        <form onSubmit={handlePostComment}>
           <textarea
             value={newComment}
             onChange={(event) => setNewComment(event.target.value)}
@@ -128,9 +150,6 @@ function ArticleId() {
           {postError && <p>Error posting comment. Please try again.</p>}
         </form>
 
-
-
-      
         <h2>Comments</h2>
         {comments.map((comment) => (
           <div key={comment.comment_id} className="comment-box">
@@ -139,6 +158,16 @@ function ArticleId() {
             </p>
             <p>{comment.body}</p>
             <p>Votes: {comment.votes}</p>
+            {comment.author === user.username && (
+              <button id="delete-comment"
+                onClick={() => handleDeleteComment(comment.comment_id)}
+                disabled={deletingCommentId === comment.comment_id}
+              >
+                {deletingCommentId === comment.comment_id
+                  ? "Deleting..."
+                  : "Delete"}
+              </button>
+            )}
           </div>
         ))}
       </div>
