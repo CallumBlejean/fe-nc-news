@@ -125,14 +125,24 @@
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: #4caf50;
+  
   color: white;
 }
+#upvote {
+  background-color: #4caf50;
+}
 
-.vote-section button:hover {
+#downvote {
+  background-color: #d12a2a;
+}
+
+#upvote:hover {
   background-color: #45a049;
 }
 
+#downvote:hover {
+  background-color: #af1e1e;
+}
 .vote-section button:active {
   transform: scale(0.95);
 }
