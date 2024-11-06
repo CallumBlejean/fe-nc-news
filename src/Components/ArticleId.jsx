@@ -3,6 +3,7 @@ import defaultImg from "../assets/default-pic.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../Components-CSS/ArticleId.css";
+import { fetchArticle, fetchComments, updateVote } from "../api"
 
 function ArticleId() {
   const { article_id } = useParams();
@@ -16,10 +17,11 @@ function ArticleId() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(articleURL)
-      .then((response) => {
-        setArticle(response.data.article);
+    
+    fetchArticle(article_id)
+      .then((fetchedArticle) => {
+        setArticle(fetchedArticle);
+        setArticleVotes(fetchedArticle.votes)
         setIsError(false);
         setIsLoading(false);
       })
@@ -27,10 +29,9 @@ function ArticleId() {
         setIsError(true);
         setIsLoading(false);
       });
-    axios
-      .get(commentsURL)
-      .then((response) => {
-        setComments(response.data.comments);
+    fetchComments(article_id)
+      .then((fetchedComments) => {
+        setComments(fetchedComments);
         setIsError(false);
         setIsLoading(false);
       })
@@ -38,16 +39,15 @@ function ArticleId() {
         setIsError(true);
         setIsLoading(false);
       });
-  }, [articleURL, commentsURL]);
+  }, [article_id]);
 
 function handleVote(increment) {
     
     setArticleVotes((prevVotes) => prevVotes + increment)
 
-    axios
-    .patch(articleURL, { inc_votes: increment})
-    .then((response) => {
-        setArticleVotes(response.data.article.votes)
+    updateVote(article_id, increment)
+    .then((newVotes) => {
+        setArticleVotes(newVotes)
     })
     .catch((error) => {
         setArticleVotes((prevVotes) => prevVotes - inc)
