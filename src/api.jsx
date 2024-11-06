@@ -3,11 +3,23 @@ import axios from "axios"
 
 const baseURL = "https://be-nc-news-yg12.onrender.com/api"
 
+function fetchAllArticles() {
+    return axios
+    .get(`${baseURL}/articles/`)
+    .then((response) => {
+        return response.data.articles
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
+
 function fetchArticle(article_id) {
     return axios
     .get(`${baseURL}/articles/${article_id}`)
     .then((response) => {
-       return response.data.article
+        return response.data.article
     })
     .catch((error) => {
         console.log(error)
@@ -84,5 +96,6 @@ export {
     postArticle,
     postComment,
     deleteComment,
+    fetchAllArticles
 
 }
