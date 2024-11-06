@@ -1,5 +1,6 @@
 import axios from "axios"
 
+
 const baseURL = "https://be-nc-news-yg12.onrender.com/api"
 
 function fetchArticle(article_id) {
@@ -37,8 +38,42 @@ function updateVote(article_id, increment) {
     })
 }
 
+function postComment(article_id, username, body){
+    return axios
+    .post(`${baseURL}/articles/${article_id}/comments`, {
+        username,
+        body
+    })
+    .then((response) => {
+        return response.data.comment
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
+
+function postArticle(author, title, body, topic, article_img_url){
+    return axios
+    .post(`${baseURL}/articles/`, {
+        author,
+        title,
+        body,
+        topic,
+        article_img_url,
+    })
+    .then((response) => {
+        return response.data.article
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
 export {
     fetchArticle,
     fetchComments,
     updateVote,
+    postArticle,
+    postComment,
 }
