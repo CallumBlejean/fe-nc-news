@@ -101,6 +101,44 @@
     font-size: 1em;
     color: #555;
   }
+  .comments-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .comments-section textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    font-family: inherit;
+  }
+  
+  .comments-section button[type="submit"] {
+    padding: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4caf50;
+    color: white;
+    width: 100%
+  }
+  
+  .comments-section button[type="submit"]:disabled {
+    background-color: #ccc;
+  }
+  
+  #delete-comment {
+    background-color: #d12a2a;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
 
   /* vote section*/
  
@@ -145,41 +183,4 @@
 }
 .vote-section button:active {
   transform: scale(0.95);
-}
-.comments-section form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-.comments-section textarea {
-  width: 100%;
-  padding: 8px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: vertical;
-  font-family: inherit;
-}
-
-.comments-section button[type="submit"] {
-  padding: 8px;
-  font-size: 1em;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: #4caf50;
-  color: white;
-}
-
-.comments-section button[type="submit"]:disabled {
-  background-color: #ccc;
-}
-
-#delete-comment {
-  background-color: #d12a2a;
-  color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
