@@ -73,9 +73,7 @@ function ArticleId() {
 
     postComment(article_id, user.username, newComment)
       .then((postedComment) => {
-        setComments((prevComments) => {
-          return [postedComment, ...prevComments];
-        });
+        setComments((prevComments) => comments ? [postedComment, ...prevComments] : [postedComment]);
         setNewComment("");
         setIsPosting(false);
       })
@@ -97,7 +95,7 @@ function ArticleId() {
         setDeletingCommentId(null);
       })
       .catch((error) => {
-        setDeletingCommentId(null)
+        setDeletingCommentId(null);
         console.log(error);
       });
   }
@@ -151,25 +149,30 @@ function ArticleId() {
         </form>
 
         <h2>Comments</h2>
-        {comments.map((comment) => (
-          <div key={comment.comment_id} className="comment-box">
-            <p>
-              <b>{comment.author}</b> - {comment.created_at}
-            </p>
-            <p>{comment.body}</p>
-            <p>Votes: {comment.votes}</p>
-            {comment.author === user.username && (
-              <button id="delete-comment"
-                onClick={() => handleDeleteComment(comment.comment_id)}
-                disabled={deletingCommentId === comment.comment_id}
-              >
-                {deletingCommentId === comment.comment_id
-                  ? "Deleting..."
-                  : "Delete"}
-              </button>
-            )}
-          </div>
-        ))}
+        {comments && comments.length > 0 ? (
+          comments.map((comment) => (
+            <div key={comment.comment_id} className="comment-box">
+              <p>
+                <b>{comment.author}</b> - {comment.created_at}
+              </p>
+              <p>{comment.body}</p>
+              <p>Votes: {comment.votes}</p>
+              {comment.author === user.username && (
+                <button
+                  id="delete-comment"
+                  onClick={() => handleDeleteComment(comment.comment_id)}
+                  disabled={deletingCommentId === comment.comment_id}
+                >
+                  {deletingCommentId === comment.comment_id
+                    ? "Deleting..."
+                    : "Delete"}
+                </button>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>Make the first comment!</p>
+        )}
       </div>
     </>
   );
