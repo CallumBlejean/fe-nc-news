@@ -3,14 +3,18 @@ import axios from "axios"
 
 const baseURL = "https://be-nc-news-yg12.onrender.com/api"
 
-function fetchAllArticles() {
+function fetchAllArticles(topic, sort_by, order) {
+    const params = {};
+  if (topic) params.topic = topic;
+  if (sort_by) params.sort_by = sort_by;
+  if (order) params.order = order;
     return axios
-    .get(`${baseURL}/articles/`)
+    .get(`${baseURL}/articles/`, { params })
     .then((response) => {
         return response.data.articles
     })
     .catch((error) => {
-        console.log(error)
+        console.log("Error fetching articles:", error)
     })
 }
 
