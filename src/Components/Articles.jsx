@@ -12,8 +12,6 @@ function Articles() {
   const [isSort, setIsSort] = useState("created_at");
   const [isOrder, setIsOrder] = useState("desc");
   const [searchParams, setSearchParams] = useSearchParams();
-  // const category = searchParams.get("category");
-  // const sort = searchParams.get("sort");
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,24 +29,6 @@ function Articles() {
         setIsLoading(false);
       });
   }, [searchParams]);
-
-  // useEffect(() => {
-  //   if (category) {
-  //     setIsFilter(category);
-  //   }
-  //   if (sort) {
-  //     setIsSort(sort);
-  //   }
-  // }, [category, sort]);
-
-  // useEffect(() => {
-  //   if (!category){
-  //     setIsFilter("")
-  //   }
-  //   if (!sort){
-  //     setIsSort("")
-  //   }
-  // }, [category, sort])
 
   if (isError) {
     return <p>There was an error loading articles. Please try again later.</p>;
@@ -76,32 +56,6 @@ function Articles() {
     setSearchParams(newParams);
   }
 
-  // function filteredArticles(array) {
-  //   if (isFilter === "" || isFilter === "all") {
-  //     return array;
-  //   }
-  //   return array.filter((article) => {
-  //     return article.topic === isFilter;
-  //   });
-  // }
-  // function sortedArticles(array) {
-  //   const sorted = [...array]
-  //   if (isSort === "date" && isOrder === "desc"){
-  //     sorted.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
-  //   } else if (isSort === "date" && isOrder === "asc"){
-  //     sorted.sort((a,b) => new Date(a.created_at) - new Date(b.created_at))
-  //   } else if (isSort === 'comment-count' && isOrder === "desc") {
-  //     sorted.sort((a, b) => b.comment_count - a.comment_count);
-  //   } else if (isSort === 'comment-count' && isOrder === "asc") {
-  //     sorted.sort((a, b) => a.comment_count - b.comment_count);
-  //   } else if (isSort === 'votes' && isOrder === "desc") {
-  //     sorted.sort((a, b) => b.votes - a.votes);
-  //   } else if (isSort === 'votes' && isOrder === "asc") {
-  //     sorted.sort((a, b) => a.votes - b.votes);
-  //   }
-  //   return sorted;
-  // };
-  // const filteredAndSortedArticles = filteredArticles(sortedArticles(articles));
   return (
     <>
     {/*Sort by */}

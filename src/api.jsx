@@ -5,9 +5,9 @@ const baseURL = "https://be-nc-news-yg12.onrender.com/api"
 
 function fetchAllArticles(topic, sort_by, order) {
     const params = {};
-  if (topic) params.topic = topic;
-  if (sort_by) params.sort_by = sort_by;
-  if (order) params.order = order;
+    if (topic) params.topic = topic;
+    if (sort_by) params.sort_by = sort_by;
+    if (order) params.order = order;
     return axios
     .get(`${baseURL}/articles/`, { params })
     .then((response) => {
