@@ -9,15 +9,16 @@ function Articles() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isFilter, setIsFilter] = useState("");
-  const [isSort, setIsSort] = useState("");
+  const [isSort, setIsSort] = useState("created_at");
   const [isOrder, setIsOrder] = useState("desc");
   const [searchParams, setSearchParams] = useSearchParams();
-  const category = searchParams.get("category");
-  const sort = searchParams.get("sort");
 
   useEffect(() => {
     setIsLoading(true);
-    fetchAllArticles()
+    const topic = searchParams.get("topic");
+    const sort = searchParams.get("sort");
+    const order = searchParams.get("order") || "desc";
+    fetchAllArticles(topic, sort, order)
       .then((allArticles) => {
         setArticles(allArticles);
         setIsError(false);
@@ -29,24 +30,6 @@ function Articles() {
       });
   }, [searchParams]);
 
-  useEffect(() => {
-    if (category) {
-      setIsFilter(category);
-    }
-    if (sort) {
-      setIsSort(sort);
-    }
-  }, [category, sort]);
-
-  useEffect(() => {
-    if (!category){
-      setIsFilter("")
-    }
-    if (!sort){
-      setIsSort("")
-    }
-  }, [category, sort])
-
   if (isError) {
     return <p>There was an error loading articles. Please try again later.</p>;
   }
@@ -57,7 +40,7 @@ function Articles() {
   function handleFilterChange(event) {
     setIsFilter(event.target.value);
     const newParams = new URLSearchParams(searchParams);
-    newParams.set("category", event.target.value);
+    newParams.set("topic", event.target.value);
     setSearchParams(newParams);
   }
   function handleSortChange(event) {
@@ -73,32 +56,6 @@ function Articles() {
     setSearchParams(newParams);
   }
 
-  function filteredArticles(array) {
-    if (isFilter === "" || isFilter === "all") {
-      return array;
-    }
-    return array.filter((article) => {
-      return article.topic === isFilter;
-    });
-  }
-  function sortedArticles(array) {
-    const sorted = [...array]
-    if (isSort === "date" && isOrder === "desc"){
-      sorted.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
-    } else if (isSort === "date" && isOrder === "asc"){
-      sorted.sort((a,b) => new Date(a.created_at) - new Date(b.created_at))
-    } else if (isSort === 'comment-count' && isOrder === "desc") {
-      sorted.sort((a, b) => b.comment_count - a.comment_count);
-    } else if (isSort === 'comment-count' && isOrder === "asc") {
-      sorted.sort((a, b) => a.comment_count - b.comment_count);
-    } else if (isSort === 'votes' && isOrder === "desc") {
-      sorted.sort((a, b) => b.votes - a.votes);
-    } else if (isSort === 'votes' && isOrder === "asc") {
-      sorted.sort((a, b) => a.votes - b.votes);
-    }
-    return sorted;
-  };
-  const filteredAndSortedArticles = filteredArticles(sortedArticles(articles));
   return (
     <>
     {/*Sort by */}
@@ -111,8 +68,8 @@ function Articles() {
             value={isSort}
             onChange={handleSortChange}
           >
-            <option value="date">Date</option>
-            <option value="comment-count">Comment Count</option>
+            <option value="created_at">Date</option>
+            <option value="comment_count">Comment Count</option>
             <option value="votes">Votes</option>
           </select>
         </div>
@@ -148,7 +105,7 @@ function Articles() {
         </div>
       </div>
 
-      <ArticleCard articles={filteredAndSortedArticles} />
+      <ArticleCard articles={articles} />
     </>
   );
 }
