@@ -73,7 +73,7 @@ function Articles() {
             <option value="votes">Votes</option>
           </select>
         </div>
-         {/*Sort by */}
+         {/*Order by */}
         <div className="order-dropdown">
           <select
             className="order"
@@ -97,7 +97,7 @@ function Articles() {
             onChange={handleFilterChange}
           >
             <option value="" disabled hidden>Filter by: </option>
-            <option value="all">Show All</option>
+            <option value="">Show All</option>
             <option value="coding">Coding</option>
             <option value="football">Football</option>
             <option value="cooking">Cooking</option>

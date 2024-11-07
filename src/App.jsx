@@ -4,6 +4,7 @@ import Articles from "./Components/Articles";
 import Home from "./Components/Home";
 import ArticleId from "./Components/ArticleId"
 import { Routes, Route } from "react-router-dom";
+import NotFound from "./Components/NotFound"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Articles" element={<Articles />} />
         <Route path="/Articles/:article_id" element={<ArticleId />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

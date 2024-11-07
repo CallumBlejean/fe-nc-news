@@ -1,57 +1,41 @@
+
+
 .title-container {
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-bottom: 16px;
     width: 100%;
-}
-
-.title-dropdown {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1080px;
-    width: 100%;
-    padding: 0 16px;
-    box-sizing: border-box;
+    max-width: 1000px;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .title {
-    font-size: 2em;
+    font-size: large;
     color: #333;
-    flex-grow: 1; 
-    text-align: left;
-}
-.filter {
-    padding: 8px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    color: #333;
-    cursor: pointer;
-    min-width: 100px; 
+    margin: 0;
+    flex-basis: 100%; 
     text-align: center;
 }
-.sort {
-    padding: 8px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    color: #333;
-    cursor: pointer;
-    min-width: 70px; 
-    text-align: center;
-}
-.sort-dropdown {
+
+.sort-dropdown,
+.order-dropdown,
+.title-dropdown {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    max-width: 1080px;
-    width: 100%;
+    justify-content: center;
     padding: 0 16px;
     box-sizing: border-box;
+    min-width: 100px;
+    max-width: 180px;
 }
+
+.filter,
+.sort,
 .order {
     padding: 8px;
     font-size: 1em;
@@ -60,15 +44,21 @@
     background-color: #f9f9f9;
     color: #333;
     cursor: pointer;
-    min-width: 70px; 
-    text-align: center;
-}
-.order-dropdown {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1080px;
     width: 100%;
-    padding: 0 16px;
+    text-align: center;
     box-sizing: border-box;
 }
+
+
+    .title {
+        font-size: 1.5em;
+        margin-left: 0;
+    }
+
+    .sort-dropdown,
+    .order-dropdown,
+    .title-dropdown {
+        max-width: 100%;
+        padding: 0;
+    }
+
