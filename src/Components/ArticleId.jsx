@@ -121,7 +121,7 @@ function ArticleId() {
         />
 
         <p id="author">
-          {article.author} - {article.topic}
+          {article.author} - {article.topic} - {article.created_at}
         </p>
         <div id="body">{article.body}</div>
         <div className="vote-section">

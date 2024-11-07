@@ -15,8 +15,7 @@ function Home() {
         <img src={NCimg} alt="NC News home picture" id="NCimg"/>
       </section>
       <footer>
-        <button>Sign in Account</button>
-        <button>Explore Community</button>
+       
       </footer>
     </>
   );

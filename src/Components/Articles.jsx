@@ -1,6 +1,5 @@
 import ArticleCard from "./ArticleCard";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { fetchAllArticles } from "../api";
 import { useSearchParams } from "react-router-dom";
 import "../Components-CSS/Articles.css";
@@ -10,8 +9,11 @@ function Articles() {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isFilter, setIsFilter] = useState("");
+  const [isSort, setIsSort] = useState("");
+  const [isOrder, setIsOrder] = useState("desc");
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
+  const sort = searchParams.get("sort");
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,13 +27,25 @@ function Articles() {
         setIsError(true);
         setIsLoading(false);
       });
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (category) {
       setIsFilter(category);
     }
-  }, [category]);
+    if (sort) {
+      setIsSort(sort);
+    }
+  }, [category, sort]);
+
+  useEffect(() => {
+    if (!category){
+      setIsFilter("")
+    }
+    if (!sort){
+      setIsSort("")
+    }
+  }, [category, sort])
 
   if (isError) {
     return <p>There was an error loading articles. Please try again later.</p>;
@@ -46,6 +60,18 @@ function Articles() {
     newParams.set("category", event.target.value);
     setSearchParams(newParams);
   }
+  function handleSortChange(event) {
+    setIsSort(event.target.value);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("sort", event.target.value);
+    setSearchParams(newParams);
+  }
+  function handleOrderChange(event) {
+    setIsOrder(event.target.value);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("order", event.target.value);
+    setSearchParams(newParams);
+  }
 
   function filteredArticles(array) {
     if (isFilter === "" || isFilter === "all") {
@@ -55,18 +81,65 @@ function Articles() {
       return article.topic === isFilter;
     });
   }
-
+  function sortedArticles(array) {
+    const sorted = [...array]
+    if (isSort === "date" && isOrder === "desc"){
+      sorted.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
+    } else if (isSort === "date" && isOrder === "asc"){
+      sorted.sort((a,b) => new Date(a.created_at) - new Date(b.created_at))
+    } else if (isSort === 'comment-count' && isOrder === "desc") {
+      sorted.sort((a, b) => b.comment_count - a.comment_count);
+    } else if (isSort === 'comment-count' && isOrder === "asc") {
+      sorted.sort((a, b) => a.comment_count - b.comment_count);
+    } else if (isSort === 'votes' && isOrder === "desc") {
+      sorted.sort((a, b) => b.votes - a.votes);
+    } else if (isSort === 'votes' && isOrder === "asc") {
+      sorted.sort((a, b) => a.votes - b.votes);
+    }
+    return sorted;
+  };
+  const filteredAndSortedArticles = filteredArticles(sortedArticles(articles));
   return (
     <>
+    {/*Sort by */}
       <div className="title-container">
+      <h1 className="title">Articles</h1>
+        <div className="sort-dropdown">
+          Sort by:
+          <select
+            className="sort"
+            value={isSort}
+            onChange={handleSortChange}
+          >
+            <option value="date">Date</option>
+            <option value="comment-count">Comment Count</option>
+            <option value="votes">Votes</option>
+          </select>
+        </div>
+         {/*Sort by */}
+        <div className="order-dropdown">
+          <select
+            className="order"
+            value={isOrder}
+            onChange={handleOrderChange}
+          >
+            <option value="asc">Asc</option>
+            <option value="desc">Desc</option>
+          </select>
+        </div>
+      
+
+
+    {/* /*filter by */}
+      
         <div className="title-dropdown">
-          <h1 className="title">Articles</h1>
+          
           <select
             className="filter"
             value={isFilter}
             onChange={handleFilterChange}
           >
-            <option value="" disabled selected hidden>Filter by: </option>
+            <option value="" disabled hidden>Filter by: </option>
             <option value="all">Show All</option>
             <option value="coding">Coding</option>
             <option value="football">Football</option>
@@ -75,7 +148,7 @@ function Articles() {
         </div>
       </div>
 
-      <ArticleCard articles={filteredArticles(articles)} />
+      <ArticleCard articles={filteredAndSortedArticles} />
     </>
   );
 }

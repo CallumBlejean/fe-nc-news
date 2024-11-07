@@ -30,7 +30,7 @@ function fetchComments(article_id) {
     return axios
     .get(`${baseURL}/articles/${article_id}/comments`)
     .then((response) => {
-        return response.data.comments
+        return response.data.comments.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
     })
     .catch((error) => {
         console.log(error)
