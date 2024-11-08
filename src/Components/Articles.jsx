@@ -25,13 +25,13 @@ function Articles() {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsError(true);
+        setIsError(error.response?.status);
         setIsLoading(false);
       });
   }, [searchParams]);
 
-  if (isError) {
-    return <p>This topic doesnt exist!</p>;
+  if (isError === 404) {
+    return <p id="error404">This topic doesnt exist!</p>;
   }
 
   if (isLoading) {

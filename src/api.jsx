@@ -13,9 +13,6 @@ function fetchAllArticles(topic, sort_by, order) {
     .then((response) => {
         return response.data.articles
     })
-    .catch((error) => {
-        throw new error(error)
-    })
 }
 
 
@@ -25,9 +22,7 @@ function fetchArticle(article_id) {
     .then((response) => {
         return response.data.article
     })
-    .catch((error) => {
-        throw new error("This error text will be ignored")
-    })
+    
 }
 
 function fetchComments(article_id) {
@@ -35,9 +30,6 @@ function fetchComments(article_id) {
     .get(`${baseURL}/articles/${article_id}/comments`)
     .then((response) => {
         return response.data.comments.sort((a,b) => new Date(b.created_at) - new Date(a.created_at))
-    })
-    .catch((error) => {
-        console.log(error)
     })
 }
 
@@ -48,9 +40,6 @@ function updateVote(article_id, increment) {
     })
     .then((response) => {
         return response.data.article.votes
-    })
-    .catch((error) => {
-        console.log(error)
     })
 }
 
@@ -63,16 +52,10 @@ function postComment(article_id, username, body){
     .then((response) => {
         return response.data.comment
     })
-    .catch((error) => {
-        console.log(error)
-    })
 }
 function deleteComment(comment_id){
     return axios
     .delete(`${baseURL}/comments/${comment_id}`)
-    .catch((error) => {
-        console.log(error)
-    })
 }
 
 
@@ -87,9 +70,6 @@ function postArticle(author, title, body, topic, article_img_url){
     })
     .then((response) => {
         return response.data.article
-    })
-    .catch((error) => {
-        console.log(error)
     })
 }
 

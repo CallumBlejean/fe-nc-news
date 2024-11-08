@@ -38,9 +38,12 @@ function ArticleId() {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsError(true);
+        setIsError(error.response?.status);
         setIsLoading(false);
       });
+  }, [article_id]);
+
+  useEffect(() => {
     fetchComments(article_id)
       .then((fetchedComments) => {
         setComments(fetchedComments);
@@ -48,10 +51,10 @@ function ArticleId() {
         setIsLoading(false);
       })
       .catch((error) => {
-        setIsError(true);
+        setIsError(error.response?.status)
         setIsLoading(false);
       });
-  }, [article_id]);
+  }, [article_id])
 
   function handleVote(increment) {
     setArticleVotes((prevVotes) => prevVotes + increment);
@@ -79,7 +82,7 @@ function ArticleId() {
       })
 
       .catch((error) => {
-        setPostError(true);
+        setPostError(error.response?.status);
         setIsPosting(false);
       });
   }
@@ -100,9 +103,12 @@ function ArticleId() {
       });
   }
   
-  if (isError) {
-    return <p>There was an error loading this article. Please try again later.</p>;
-  }
+  
+    if (isError === 404) {
+  return <p id="error-block">404: Article Not Found!</p>
+} else if (isError === 400) {
+  return <p id="error-block">400: Invalid Article ID - Must be a Number!</p>;
+} 
 
   if (isLoading) {
     return <div className="loading-spinner">Loading articles...</div>;
