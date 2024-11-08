@@ -96,12 +96,12 @@ function ArticleId() {
       })
       .catch((error) => {
         setDeletingCommentId(null);
-        console.log(error);
+        setIsError(error)
       });
   }
-  1;
+  
   if (isError) {
-    return <p>There was an error loading articles. Please try again later.</p>;
+    return <p>There was an error loading this article. Please try again later.</p>;
   }
 
   if (isLoading) {

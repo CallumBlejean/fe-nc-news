@@ -14,7 +14,7 @@ function fetchAllArticles(topic, sort_by, order) {
         return response.data.articles
     })
     .catch((error) => {
-        console.log("Error fetching articles:", error)
+        throw new error(error)
     })
 }
 
@@ -26,7 +26,7 @@ function fetchArticle(article_id) {
         return response.data.article
     })
     .catch((error) => {
-        console.log(error)
+        throw new error("This error text will be ignored")
     })
 }
 

@@ -31,7 +31,7 @@ function Articles() {
   }, [searchParams]);
 
   if (isError) {
-    return <p>There was an error loading articles. Please try again later.</p>;
+    return <p>This topic doesnt exist!</p>;
   }
 
   if (isLoading) {
