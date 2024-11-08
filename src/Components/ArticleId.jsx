@@ -29,6 +29,13 @@ function ArticleId() {
   const [deletingCommentId, setDeletingCommentId] = useState(null);
 
   useEffect(() => {
+    const savedVote = localStorage.getItem(`articleVote_${article_id}`);
+    if (savedVote) {
+      setCurrentVote(savedVote);
+    }
+
+
+
     setIsLoading(true);
 
     fetchArticle(article_id)
@@ -62,9 +69,11 @@ function ArticleId() {
     if (currentVote === vote){
       setArticleVotes((prevVotes) => prevVotes - increment);
       setCurrentVote(null);
+      localStorage.removeItem(`articleVote_${article_id}`);
     }else {
       setArticleVotes((prevVotes) => prevVotes + increment);
       setCurrentVote(vote);
+      localStorage.setItem(`articleVote_${article_id}`, vote);
     }
 
 
