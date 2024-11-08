@@ -18,6 +18,7 @@ function ArticleId() {
   const [articleVotes, setArticleVotes] = useState(0);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [currentVote, setCurrentVote] = useState(null)
 
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,17 +57,21 @@ function ArticleId() {
       });
   }, [article_id])
 
-  function handleVote(increment) {
-    setArticleVotes((prevVotes) => prevVotes + increment);
+  function handleVote(vote) {
+    const increment = vote === 'up' ? 1 : -1;
+    if (currentVote === vote){
+      setArticleVotes((prevVotes) => prevVotes - increment);
+      setCurrentVote(null);
+    }else {
+      setArticleVotes((prevVotes) => prevVotes + increment);
+      setCurrentVote(vote);
+    }
+
 
     updateVote(article_id, increment)
-      .then((newVotes) => {
-        setArticleVotes(newVotes);
-      })
       .catch((error) => {
         setArticleVotes((prevVotes) => prevVotes - increment);
         setIsError(true);
-        setIsLoading(false);
       });
   }
 
@@ -79,6 +84,7 @@ function ArticleId() {
         setComments((prevComments) => comments ? [postedComment, ...prevComments] : [postedComment]);
         setNewComment("");
         setIsPosting(false);
+      
       })
 
       .catch((error) => {
@@ -113,7 +119,7 @@ function ArticleId() {
   if (isLoading) {
     return <div className="loading-spinner">Loading articles...</div>;
   }
-
+  
   return (
     <>
       <title>{article.title}</title>
@@ -128,13 +134,15 @@ function ArticleId() {
           {article.author} - {article.topic} - {article.created_at}
         </p>
         <div id="body">{article.body}</div>
+        
         <div className="vote-section">
-          <button id="upvote" onClick={() => handleVote(1)}>
-            Upvote
+          <button id="upvote" disabled={currentVote === 'down'} onClick={() => handleVote("up")}>
+          {currentVote === 'up' ? 'Undo Upvote' : 'Upvote'}
           </button>
           <p>Votes: {articleVotes}</p>
-          <button id="downvote" onClick={() => handleVote(-1)}>
-            Downvote
+          <button id="downvote" disabled={currentVote === 'up'} onClick={() => handleVote("down")}>
+          {currentVote === 'down' ? 'Undo Downvote' : 'Downvote'}
+
           </button>
         </div>
       </div>
