@@ -12,18 +12,12 @@ function Articles() {
   const [isSort, setIsSort] = useState("created_at");
   const [isOrder, setIsOrder] = useState("desc");
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isServerRestarting, setIsServerRestarting] = useState(false);
-  const [isRefreshNeeded, setIsRefreshNeeded] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     const topic = searchParams.get("topic");
     const sort = searchParams.get("sort");
     const order = searchParams.get("order") || "desc";
-
-    const restartTimeout = setTimeout(() => setIsServerRestarting(true), 10000); 
-    const refreshTimeout = setTimeout(() => setIsRefreshNeeded(true), 60000);
-
     fetchAllArticles(topic, sort, order)
       .then((allArticles) => {
         setArticles(allArticles);
@@ -41,21 +35,7 @@ function Articles() {
   }
 
   if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner">Loading articles...</div>
-        {isServerRestarting && (
-          <p className="server-restart-message">
-            The server is restarting due to it being a free server. Please wait a moment.
-          </p>
-        )}
-        {isRefreshNeeded && (
-          <p className="refresh-message">
-            It's taking longer than expected. Please refresh the page.
-          </p>
-        )}
-      </div>
-    );
+    return <div className="loading-spinner">Loading articles...</div>;
   }
   function handleFilterChange(event) {
     setIsFilter(event.target.value);

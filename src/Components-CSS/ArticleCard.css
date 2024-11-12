@@ -1,18 +1,10 @@
-.loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  font-size: 1.5em;
-  color: #555;
-}
-
 .loading-spinner {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px; 
+  height: 100vh;
+  font-size: 1.5em;
+  color: #555;
 }
 
 .loading-spinner::after {
@@ -24,25 +16,6 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
-.server-restart-message,
-.refresh-message {
-  font-size: 1em;
-  color: #888; 
-  text-align: center;
-  margin-top: 10px;
-  max-width: 300px;
-}
-
-.server-restart-message {
-  font-style: italic;
-}
-
-.refresh-message {
-  color: #a33;
-  font-weight: bold;
-}
-
 @keyframes spin {
   from {
       transform: rotate(0deg);
@@ -54,63 +27,62 @@
 
 
 .article-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    padding: 0;
-    list-style-type: none;
-    margin: 0 auto;
-    max-width: 1200px; /* max size for big screens */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  padding: 0;
+  list-style-type: none;
+  margin: 0 auto;
+  max-width: 1200px; /* max size for big screens */
 }
 
 
 .article-list li {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-    transition: transform 0.3s ease;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
 /* cool hover pop up */
 .article-list li:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 
 .article-list h3 {
-    font-size: 1.25em;
-    margin: 8px 0;
-    color: #333;
+  font-size: 1.25em;
+  margin: 8px 0;
+  color: #333;
 }
 
 
 .article-list p {
-    font-size: 0.9em;
-    color: #666;
+  font-size: 0.9em;
+  color: #666;
 }
 
 
 .article-card-img {
-    justify-content: center;
-    min-width: 150px;
-    max-height: 150px;
-    height: auto;
+  justify-content: center;
+  min-width: 150px;
+  max-height: 150px;
+  height: auto;
 }
-  .vote-count {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .comment-count {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #555;
-  }
-  
+.vote-count {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #555;
+}
+
+.comment-count {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #555;
+}
