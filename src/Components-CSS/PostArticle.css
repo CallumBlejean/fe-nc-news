@@ -1,0 +1,48 @@
+.post-article {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-article h2 {
+    text-align: center;
+  }
+  
+  .post-article form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .post-article label {
+    font-weight: bold;
+  }
+  
+  .post-article input,
+  .post-article textarea,
+  .post-article select {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  .post-article button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .post-article button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

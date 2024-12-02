@@ -73,6 +73,13 @@ function postArticle(author, title, body, topic, article_img_url){
     })
 }
 
+const fetchTopics = () => {
+    return axios.get(`${baseURL}/topics`)
+    .then((response) => {
+        return response.data.topics
+    })
+}
+
 export {
     fetchArticle,
     fetchComments,
@@ -80,6 +87,7 @@ export {
     postArticle,
     postComment,
     deleteComment,
-    fetchAllArticles
+    fetchAllArticles,
+    fetchTopics,
 
 }
